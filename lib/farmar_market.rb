@@ -23,4 +23,16 @@ class FarMar::Market
 		end
 		return markets
 	end
+
+	def self.find(id)
+		markets = all
+
+		markets.each do |market|
+			if market.id == id
+				return market
+			end
+		end
+
+		return nil
+	end
 end

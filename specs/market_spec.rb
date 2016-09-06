@@ -10,4 +10,8 @@ describe 'Market::Testing reading from csv' do
 		expect(markets[345].state.must_equal("Missouri"))
 		expect(markets[499].address.must_equal("111 E. 210th Street"))
 	end
+
+	it 'must be able to find objects by id' do
+		expect(FarMar::Market.find(8).name.must_equal("Charlestown Farmers Market"))
+	end
 end
