@@ -8,6 +8,6 @@ describe 'Vendor::Testing reading from csv' do
 		expect(vendors.length.must_equal(2690))
 		expect(vendors[0].name.must_equal("Feil-Farrell"))
 		expect(vendors[279].num_employees.must_equal(7))
-		expect(vendors[2689].market_id.must_equal("500"))
+		expect(vendors[2689].market_id.must_equal(500))
 	end
 end
