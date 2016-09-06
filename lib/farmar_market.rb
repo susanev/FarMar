@@ -14,7 +14,7 @@ class FarMar::Market
 		@id = @id.to_i
 	end
 
-	def self.create_from_file(filename)
+	def self.all(filename)
 		markets = []
 		CSV.foreach(filename) do |row|
 			if row.length > 0 

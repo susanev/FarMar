@@ -18,7 +18,7 @@ class FarMar::Sale
 		@product_id = @product_id.to_i
 	end
 
-	def self.create_from_file(filename)
+	def self.all(filename)
 		sales = []
 		CSV.foreach(filename) do |row|
 			if row.length > 0 
