@@ -20,4 +20,16 @@ class FarMar::Product
 		end
 		return products
 	end
+
+	def self.find(id)
+		products = all
+
+		products.each do |product|
+			if product.id == id
+				return product
+			end
+		end
+
+		return nil
+	end
 end

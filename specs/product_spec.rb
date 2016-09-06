@@ -10,4 +10,8 @@ describe 'Product::Testing reading from csv' do
 		expect(products[279].id.must_equal(280))
 		expect(products[8192].vendor_id.must_equal(2690))
 	end
+
+	it 'must be able to find objects by id' do
+		expect(FarMar::Product.find(31).name.must_equal("Sore Chicken"))
+	end
 end
