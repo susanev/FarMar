@@ -11,6 +11,7 @@ class FarMar::Market
 
 	def initialize(arr)
 		@id, @name, @address, @city, @county, @state, @zip = arr
+		@id = @id.to_i
 	end
 
 	def self.create_from_file(filename)
