@@ -1,4 +1,4 @@
-subl#spec helper
+#spec helper
 require 'minitest'
 require 'minitest/spec'
 require 'minitest/autorun'
