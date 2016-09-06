@@ -7,6 +7,8 @@ class FarMar::Product
 
 	def initialize(arr)
 		@id, @name, @vendor_id = arr
+		@id = @id.to_i
+		@vendor_id = @vendor_id.to_i
 	end
 
 	def self.create_from_file(filename)
