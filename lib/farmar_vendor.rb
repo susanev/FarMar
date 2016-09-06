@@ -20,5 +20,4 @@ class FarMar::Vendor
 		end
 		return vendors
 	end
-
 end
