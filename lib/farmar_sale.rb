@@ -18,9 +18,9 @@ class FarMar::Sale
 		@product_id = @product_id.to_i
 	end
 
-	def self.all(filename)
+	def self.all
 		sales = []
-		CSV.foreach(filename) do |row|
+		CSV.foreach("support/sales.csv") do |row|
 			if row.length > 0 
 				sales << FarMar::Sale.new(row)
 			end

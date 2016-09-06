@@ -13,9 +13,9 @@ class FarMar::Vendor
 		@market_id = @market_id.to_i
 	end
 
-	def self.all(filename)
+	def self.all
 		vendors = []
-		CSV.foreach(filename) do |row|
+		CSV.foreach("support/vendors.csv") do |row|
 			if row.length > 0 
 				vendors << FarMar::Vendor.new(row)
 			end

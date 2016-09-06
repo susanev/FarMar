@@ -3,7 +3,7 @@ require_relative '../far_mar'
 
 describe 'Product::Testing reading from csv' do
 	it 'must be able to create objects from csv' do
-		products = FarMar::Product.create_from_file('support/products.csv')
+		products = FarMar::Product.all
 		
 		expect(products.length.must_equal(8193))
 		expect(products[0].name.must_equal("Dry Beets"))

@@ -4,7 +4,7 @@ require 'date'
 
 describe 'Sale::Testing reading from csv' do
 	it 'must be able to create objects from csv' do
-		products = FarMar::Sale.create_from_file('support/sales.csv')
+		products = FarMar::Sale.all
 		
 		expect(products.length.must_equal(12798))
 		expect(products[0].amount.must_equal(9290))
