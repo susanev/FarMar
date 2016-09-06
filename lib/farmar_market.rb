@@ -12,6 +12,7 @@ class FarMar::Market
 	def initialize(arr)
 		@id, @name, @address, @city, @county, @state, @zip = arr
 		@id = @id.to_i
+		@vendors = FarMar::Vendor.by_market(@id)
 	end
 
 	def self.all
