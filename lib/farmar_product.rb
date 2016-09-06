@@ -20,5 +20,4 @@ class FarMar::Product
 		end
 		return products
 	end
-
 end
