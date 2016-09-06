@@ -1,5 +1,7 @@
 require 'csv'
 
-module FarMar; end
+module FarMar
 
-# require 'lib/farmar_market'
+end
+
+require_relative './lib/farmar_market'
