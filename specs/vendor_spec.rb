@@ -10,4 +10,8 @@ describe 'Vendor::Testing reading from csv' do
 		expect(vendors[279].num_employees.must_equal(7))
 		expect(vendors[2689].market_id.must_equal(500))
 	end
+
+	it 'must be able to find objects by id' do
+		expect(FarMar::Vendor.find(15).name.must_equal("Hyatt-King"))
+	end
 end

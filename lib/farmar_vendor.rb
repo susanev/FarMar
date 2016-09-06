@@ -22,4 +22,16 @@ class FarMar::Vendor
 		end
 		return vendors
 	end
+
+	def self.find(id)
+		vendors = all
+
+		vendors.each do |vendor|
+			if vendor.id == id
+				return vendor
+			end
+		end
+
+		return nil
+	end
 end
