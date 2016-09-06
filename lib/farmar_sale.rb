@@ -27,4 +27,16 @@ class FarMar::Sale
 		end
 		return sales
 	end
+
+	def self.find(id)
+		sales = all
+
+		sales.each do |sale|
+			if sale.id == id
+				return sale
+			end
+		end
+
+		return nil
+	end
 end

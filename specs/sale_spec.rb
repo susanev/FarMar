@@ -11,4 +11,8 @@ describe 'Sale::Testing reading from csv' do
 		expect(products[279].purchase_time.class.must_equal(DateTime))
 		expect(products[12797].product_id.must_equal(8192))
 	end
+
+	it 'must be able to find objects by id' do
+		expect(FarMar::Sale.find(24).amount.must_equal(3776))
+	end
 end
