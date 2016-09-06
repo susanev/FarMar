@@ -9,8 +9,12 @@ class FarMar::Vendor
 	def initialize(arr)
 		@id, @name, @num_employees, @market_id = arr
 		@id = @id.to_i
-		@num_employees = @num_employees.to_i
-		@market_id = @market_id.to_i
+		if @num_employees != nill
+			@num_employees = @num_employees.to_i
+		end
+		if @market_id != nill
+			@market_id = @market_id.to_i
+		end
 	end
 
 	def self.all
@@ -33,5 +37,18 @@ class FarMar::Vendor
 		end
 
 		return nil
+	end
+
+	def self.by_market(market_id)
+		markets = []
+		vendors = all
+
+		vendors.each do |vendor|
+			if vendor.market_id == market_id
+				markets << vendor
+			end
+		end
+
+		return markets
 	end
 end
