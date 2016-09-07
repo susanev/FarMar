@@ -15,3 +15,12 @@ describe 'Market::Testing reading from csv' do
 		expect(FarMar::Market.find(8).name.must_equal("Charlestown Farmers Market"))
 	end
 end
+
+describe 'Market::Testing vendors instance variable' do
+	it 'must have the correct vendors' do
+		market = FarMar::Market.find(2)
+
+		expect(market.vendors.length.must_equal(3))
+		expect(market.vendors[1].inspect.must_equal(FarMar::Vendor.new([8,"Stamm Inc",2,2]).inspect))
+	end
+end
