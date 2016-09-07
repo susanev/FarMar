@@ -1,12 +1,12 @@
 class FarMar::CSV
 	def self.allf(file)
-		markets = []
+		items = []
 		CSV.foreach(file) do |row|
 			if row.length > 0 
-				markets << new(row)
+				items << new(row)
 			end
 		end
-		return markets
+		return items
 	end
 
 	def self.findf(id, items)
