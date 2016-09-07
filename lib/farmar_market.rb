@@ -7,7 +7,7 @@
 # Zip - (String) zipcode in which the market is located
 
 class FarMar::Market < FarMar::CSV
-	attr_accessor :id, :name, :address, :city, :county, :state, :zip
+	attr_accessor :id, :name, :address, :city, :county, :state, :zip, :vendors
 
 	def initialize(arr)
 		@id, @name, @address, @city, @county, @state, @zip = arr
