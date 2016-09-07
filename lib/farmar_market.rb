@@ -6,7 +6,9 @@
 # State - (String) state in which the market is located
 # Zip - (String) zipcode in which the market is located
 
-class FarMar::Market < FarMar::CSV
+class FarMar::Market
+	include FarMar::CSV
+
 	attr_accessor :id, :name, :address, :city, :county, :state, :zip
 
 	def initialize(arr)
@@ -16,10 +18,10 @@ class FarMar::Market < FarMar::CSV
 	end
 
 	def self.all
-		return allf("support/markets.csv")
+		return FarMar::CSV.all("support/markets.csv", FarMar::Market)
 	end
 
 	def self.find(id)
-		return findf(id, all)
+		return FarMar::CSV.find(id, all)
 	end
 end

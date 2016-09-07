@@ -6,7 +6,9 @@
 
 require 'date'
 
-class FarMar::Sale < FarMar::CSV
+class FarMar::Sale 
+	include FarMar::CSV
+	
 	attr_accessor :id, :amount, :purchase_time, :vendor_id, :product_id
 
 	def initialize(arr)
@@ -19,10 +21,10 @@ class FarMar::Sale < FarMar::CSV
 	end
 
 	def self.all
-		return allf("support/sales.csv")
+		return FarMar::CSV.all("support/sales.csv", FarMar::Sale)
 	end
 
 	def self.find(id)
-		return findf(id, all)
+		return FarMar::CSV.find(id, all)
 	end
 end

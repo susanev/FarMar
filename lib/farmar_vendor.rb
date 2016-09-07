@@ -3,7 +3,9 @@
 # No. of Employees - (Fixnum) How many employees the vendor has at the market
 # Market_id - (Fixnum) a reference to which market the vendor attends
 
-class FarMar::Vendor < FarMar::CSV
+class FarMar::Vendor 
+	include FarMar::CSV
+	
 	attr_accessor :id, :name, :num_employees, :market_id
 
 	def initialize(arr)
@@ -18,11 +20,11 @@ class FarMar::Vendor < FarMar::CSV
 	end
 
 	def self.all
-		return allf("support/vendors.csv")
+		return FarMar::CSV.all("support/vendors.csv", FarMar::Vendor)
 	end
 
 	def self.find(id)
-		return findf(id, all)
+		return FarMar::CSV.find(id, all)
 	end
 
 	def self.by_market(market_id)
