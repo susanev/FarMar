@@ -15,7 +15,7 @@ module FarMar
 
     def self.all
       info = {}
-      CSV.read('../support/markets.csv').each do |line|
+      CSV.read('support/markets.csv').each do |line|
         id = line[0].to_i
         name = line[1]
         address = line[2]
