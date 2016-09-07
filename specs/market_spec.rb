@@ -3,8 +3,8 @@ require_relative '../far_mar'
 
 describe 'Market::Testing reading from csv' do
 	it 'must be able to create objects from csv' do
+		puts "creating markets"
 		markets = FarMar::Market.all
-		
 		expect(markets.length.must_equal(500))
 		expect(markets[0].name.must_equal("People's Co-op Farmers Market"))
 		expect(markets[345].state.must_equal("Missouri"))
