@@ -37,4 +37,8 @@ class FarMar::Vendor < FarMar::CSV
 
 		return markets
 	end
+
+	def inspect
+		"id: #{@id} name: #{@name} num employees: #{@num_employees} market id: #{@market_id}"
+	end
 end
