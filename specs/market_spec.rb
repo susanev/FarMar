@@ -2,8 +2,14 @@ require_relative 'spec_helper'
 
 describe FarMar::Market do
   describe "#initialize" do
-    west_seattle = FarMar::Market.all
+
+    it "should create an instance of Market" do
+      west_seattle = FarMar::Market.new(1, "West Seattle Market", "California & Alaska", "Seattle", "King", "WA", 98116)
+      west_seattle.must_be_instance_of(FarMar::Market)
+    end
+
     it "should be able to return Market's name" do
+        west_seattle = FarMar::Market.all
         first = west_seattle[1]
         first.name.must_equal("People's Co-op Farmers Market")
     end
@@ -22,6 +28,4 @@ describe FarMar::Market do
       west_seattle.id.must_equal(2)
     end
   end
-
-
 end
