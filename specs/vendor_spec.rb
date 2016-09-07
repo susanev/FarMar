@@ -19,7 +19,6 @@ describe 'Vendor::Testing reading from csv' do
 		vendors = FarMar::Vendor.by_market(1)
 
 		expect(vendors.length.must_equal(6))
-		puts vendors[5]
 		expect(vendors[5].inspect.must_equal(FarMar::Vendor.new([6, "Zulauf and Sons", 8, 1]).inspect))
 	end
 end
