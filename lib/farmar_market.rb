@@ -6,7 +6,7 @@
 # State - (String) state in which the market is located
 # Zip - (String) zipcode in which the market is located
 
-class FarMar::Market
+class FarMar::Market < FarMar::CSV
 	attr_accessor :id, :name, :address, :city, :county, :state, :zip
 
 	def initialize(arr)
@@ -16,24 +16,10 @@ class FarMar::Market
 	end
 
 	def self.all
-		markets = []
-		CSV.foreach("support/markets.csv") do |row|
-			if row.length > 0 
-				markets << FarMar::Market.new(row)
-			end
-		end
-		return markets
+		return allf("support/markets.csv")
 	end
 
 	def self.find(id)
-		markets = all
-
-		markets.each do |market|
-			if market.id == id
-				return market
-			end
-		end
-
-		return nil
+		return findf(id, all)
 	end
 end

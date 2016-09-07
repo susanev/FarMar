@@ -6,7 +6,7 @@
 
 require 'date'
 
-class FarMar::Sale
+class FarMar::Sale < FarMar::CSV
 	attr_accessor :id, :amount, :purchase_time, :vendor_id, :product_id
 
 	def initialize(arr)
@@ -19,24 +19,10 @@ class FarMar::Sale
 	end
 
 	def self.all
-		sales = []
-		CSV.foreach("support/sales.csv") do |row|
-			if row.length > 0 
-				sales << FarMar::Sale.new(row)
-			end
-		end
-		return sales
+		return allf("support/sales.csv")
 	end
 
 	def self.find(id)
-		sales = all
-
-		sales.each do |sale|
-			if sale.id == id
-				return sale
-			end
-		end
-
-		return nil
+		return findf(id, all)
 	end
 end

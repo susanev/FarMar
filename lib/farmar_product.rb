@@ -2,7 +2,7 @@
 # Name - (String) the name of the product (not guaranteed unique)
 # Vendor_id - (Fixnum) a reference to which vendor sells this product
 
-class FarMar::Product
+class FarMar::Product < FarMar::CSV
 	attr_accessor :id, :name, :vendor_id
 
 	def initialize(arr)
@@ -12,24 +12,10 @@ class FarMar::Product
 	end
 
 	def self.all
-		products = []
-		CSV.foreach("support/products.csv") do |row|
-			if row.length > 0 
-				products << FarMar::Product.new(row)
-			end
-		end
-		return products
+		return allf("support/products.csv")
 	end
 
 	def self.find(id)
-		products = all
-
-		products.each do |product|
-			if product.id == id
-				return product
-			end
-		end
-
-		return nil
+		return findf(id, all)
 	end
 end
