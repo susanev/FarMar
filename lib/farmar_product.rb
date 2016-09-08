@@ -18,4 +18,16 @@ class FarMar::Product < FarMar::CSV
 	def self.find(id)
 		return findf(id, all)
 	end
+
+	def self.by_vendor(vendor_id)
+		products = []
+
+		all.each do |product|
+			if product.vendor_id == vendor_id
+				products << product
+			end
+		end
+
+		return products
+	end
 end
