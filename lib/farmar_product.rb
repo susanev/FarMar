@@ -30,4 +30,10 @@ class FarMar::Product < FarMar::CSV
 
 		return products
 	end
+
+	def ==(other_product)
+		return @id == other_product.id &&
+				@name == other_product.name &&
+				@vendor_id == other_product.vendor_id
+	end
 end

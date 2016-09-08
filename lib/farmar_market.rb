@@ -22,4 +22,15 @@ class FarMar::Market < FarMar::CSV
 	def self.find(id)
 		return findf(id, all)
 	end
+
+	def ==(other_market)
+		return @id == other_market.id &&
+				@name == other_market.name &&
+				@address == other_market.address &&
+				@city == other_market.city &&
+				@county == other_market.county &&
+				@state == other_market.state &&
+				@zip == other_market.zip &&
+				@vendors == other_market.vendors
+	end
 end
