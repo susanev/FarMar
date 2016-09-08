@@ -3,8 +3,9 @@
 # No. of Employees - (Fixnum) How many employees the vendor has at the market
 # Market_id - (Fixnum) a reference to which market the vendor attends
 
-class FarMar::Vendor < FarMar::CSV
-	attr_accessor :id, :name, :num_employees, :market, :products
+class FarMar::Vendor #< FarMar::CSV
+	include FarMar::CSV
+	attr_accessor :id, :name, :num_employees, :market_id
 
 	def initialize(arr)
 		@id, @name, @num_employees, @market_id = arr
@@ -14,18 +15,25 @@ class FarMar::Vendor < FarMar::CSV
 		end
 		if @market_id != nil
 			@market_id = @market_id.to_i
-			@market = FarMar::Market.find(@market_id)
 		end
+	end
 
-		@products = FarMar::Products.by_vendor(@id)
+	def market
+		return FarMar::Market.find(@market_id)
+	end
+
+	def products
+		return FarMar::Product.by_vendor(@id)
 	end
 
 	def self.all
-		return allf("support/vendors.csv")
+		#return allf("support/vendors.csv")
+		return FarMar::CSV.all("support/vendors.csv", FarMar::Vendor)
 	end
 
 	def self.find(id)
-		return findf(id, all)
+		#return findf(id, all)
+		return FarMar::CSV.find(id, all)
 	end
 
 	def self.by_market(market_id)
@@ -48,9 +56,7 @@ class FarMar::Vendor < FarMar::CSV
 	def ==(other_vendor)
 		return @id == other_vendor.id &&
 				@name == other_vendor.name &&
-				@num_employees == other_vendor.num_employees &&
-				@market == other_vendor.market &&
-				@products == other_vendor.products
+				@num_employees == other_vendor.num_employees
 	end
 end
 

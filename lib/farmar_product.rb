@@ -2,7 +2,8 @@
 # Name - (String) the name of the product (not guaranteed unique)
 # Vendor_id - (Fixnum) a reference to which vendor sells this product
 
-class FarMar::Product < FarMar::CSV
+class FarMar::Product #< FarMar::CSV
+	include FarMar::CSV
 	attr_accessor :id, :name, :vendor_id
 
 	def initialize(arr)
@@ -12,11 +13,13 @@ class FarMar::Product < FarMar::CSV
 	end
 
 	def self.all
-		return allf("support/products.csv")
+		#return allf("support/products.csv")
+		return FarMar::CSV.all("support/products.csv", FarMar::Product)
 	end
 
 	def self.find(id)
-		return findf(id, all)
+		#return findf(id, all)
+		return FarMar::CSV.find(id, all)
 	end
 
 	def self.by_vendor(vendor_id)

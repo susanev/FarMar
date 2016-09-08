@@ -6,8 +6,9 @@
 
 require 'date'
 
-class FarMar::Sale < FarMar::CSV
-	attr_accessor :id, :amount, :purchase_time, :vendor, :product
+class FarMar::Sale #< FarMar::CSV
+	include FarMar::CSV
+	attr_accessor :id, :amount, :purchase_time
 
 	def initialize(arr)
 		@id, @amount, @purchase_time, @vendor_id, @product_id = arr
@@ -16,17 +17,24 @@ class FarMar::Sale < FarMar::CSV
 		@purchase_time = DateTime.parse(@purchase_time)
 		@vendor_id = @vendor_id.to_i
 		@product_id = @product_id.to_i
-
-		@vendor = FarMar::Vendor.find(@vendor_id)
-		@product = FarMar::Product.find(@product_id)
 	end
 
 	def self.all
-		return allf("support/sales.csv")
+		#return allf("support/sales.csv")
+		return FarMar::CSV.all("support/sales.csv", FarMar::Sale)
 	end
 
 	def self.find(id)
-		return findf(id, all)
+		#return findf(id, all)
+		return FarMar::CSV.find(id, all)
+	end
+
+	def vendor
+		return FarMar::Vendor.find(@vendor_id)
+	end
+
+	def product
+		return FarMar::Product.find(@product_id)
 	end
 
 	def self.between(beg_time, end_time)
