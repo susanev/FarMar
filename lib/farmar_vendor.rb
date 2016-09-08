@@ -4,7 +4,7 @@
 # Market_id - (Fixnum) a reference to which market the vendor attends
 
 class FarMar::Vendor < FarMar::CSV
-	attr_accessor :id, :name, :num_employees, :market_id
+	attr_accessor :id, :name, :num_employees, :market_id, :market, :products
 
 	def initialize(arr)
 		@id, @name, @num_employees, @market_id = arr
@@ -14,7 +14,10 @@ class FarMar::Vendor < FarMar::CSV
 		end
 		if @market_id != nil
 			@market_id = @market_id.to_i
+			@market = FarMar::Market.find(@market_id)
 		end
+
+		@products = FarMar::Products.by_vendor(@id)
 	end
 
 	def self.all
