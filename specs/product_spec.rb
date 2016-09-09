@@ -14,4 +14,6 @@ describe 'Product::Testing reading from csv' do
 	it 'must be able to find objects by id' do
 		expect(FarMar::Product.find(31).name.must_equal("Sore Chicken"))
 	end
+
+	#TODO, write the rest of tests for Product
 end
