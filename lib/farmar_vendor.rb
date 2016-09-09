@@ -26,6 +26,24 @@ class FarMar::Vendor #< FarMar::CSV
 		return FarMar::Product.by_vendor(@id)
 	end
 
+	def sales
+		vendor_sales = []
+		FarMar::Sale.all.each do |sale|
+			if sale.vendor_id == id
+				vendor_sales << sale
+			end
+		end
+		return vendor_sales
+	end
+
+	def revenue
+		revenue = 0
+		sales.each do |sale|
+			revenue+=sale.amount
+		end
+		return revenue
+	end
+
 	def self.all
 		#return allf("support/vendors.csv")
 		return FarMar::CSV.all("support/vendors.csv", FarMar::Vendor)
