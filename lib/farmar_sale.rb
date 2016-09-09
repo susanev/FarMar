@@ -8,7 +8,7 @@ require 'date'
 
 class FarMar::Sale #< FarMar::CSV
 	include FarMar::CSV
-	attr_accessor :id, :amount, :purchase_time
+	attr_accessor :id, :amount, :purchase_time, :vendor_id
 
 	def initialize(arr)
 		@id, @amount, @purchase_time, @vendor_id, @product_id = arr
