@@ -36,28 +36,20 @@ class FarMar::Vendor #< FarMar::CSV
 		return vendor_sales
 	end
 
-	def revenue
+	def revenue(*args)
+		rev_sales = nil
+		if args.size == 1
+			beg_date = DateTime.parse(args[0])
+			end_date = DateTime.parse(args[0] + " 23:59:59")
+			rev_sales = FarMar::Sale.between(beg_date, end_date)
+		else
+			rev_sales = sales
+		end
+
 		revenue = 0
-		sales.each do |sale|
+		rev_sales.each do |sale|
 			revenue+=sale.amount
 		end
-		return revenue
-	end
-
-	def revenue(date)
-		beg_date = DateTime.parse(date)
-		end_date = DateTime.parse(date + " 23:59:59")
-
-		sales_date = FarMar::Sale.between(beg_date, end_date)
-
-		revenue = 0
-
-		sales_date.each do |sale|
-			if sale.vendor_id == @id
-				revenue+=sale.amount
-			end
-		end
-		
 		return revenue
 	end
 
@@ -82,6 +74,47 @@ class FarMar::Vendor #< FarMar::CSV
 		end
 
 		return markets
+	end
+
+	def self.revenue(date)
+		revenue = 0
+		all.each do |vendor|
+			revenue += vendor.revenue(date)
+		end
+		return revenue
+	end
+
+	def self.most_revenue(n)
+		if n < 1
+			raise ArgumentError.new("value must be greater than 0")
+		end
+
+		most = []
+
+		all.each do |vendor|
+			if most.length == 0
+				most.push(vendor)
+			else
+				min = 0
+				max = most.length
+				mid = (min+max)/2
+
+				while (min - max) > 1
+					if vendor.revenue > most[mid].revenue
+						min = mid
+					else
+						max = mid
+					end
+				end
+				most.insert(mid+1, vendor)
+			end
+
+			if most.length > n
+				most.pop
+			end
+		end
+
+		return most
 	end
 
 	def inspect
