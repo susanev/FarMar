@@ -38,6 +38,12 @@ class FarMar::Sale #< FarMar::CSV
 	end
 
 	def self.between(beg_time, end_time)
-
+		sales = []
+		all.each do |sale|
+			time = sale.purchase_time.strftime("%H:%M")
+			if  time > beg_time && time < end_time
+				sales << sale
+			end
+		end
 	end
 end
