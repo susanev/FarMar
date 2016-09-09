@@ -29,7 +29,7 @@ class FarMar::Vendor #< FarMar::CSV
 	def sales
 		vendor_sales = []
 		FarMar::Sale.all.each do |sale|
-			if sale.vendor_id == id
+			if sale.vendor_id == @id
 				vendor_sales << sale
 			end
 		end
@@ -41,6 +41,23 @@ class FarMar::Vendor #< FarMar::CSV
 		sales.each do |sale|
 			revenue+=sale.amount
 		end
+		return revenue
+	end
+
+	def revenue(date)
+		beg_date = DateTime.parse(date)
+		end_date = DateTime.parse(date + " 23:59:59")
+
+		sales_date = FarMar::Sale.between(beg_date, end_date)
+
+		revenue = 0
+
+		sales_date.each do |sale|
+			if sale.vendor_id == @id
+				revenue+=sale.amount
+			end
+		end
+		
 		return revenue
 	end
 
