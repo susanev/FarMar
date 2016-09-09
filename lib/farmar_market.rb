@@ -30,52 +30,38 @@ class FarMar::Market #< FarMar::CSV
 		return products
 	end
 
-	def prefered_vendor
+	def prefered_vendor(*args)
 		all_vendors = vendors
 		pref_vendor = all_vendors.pop
 
 		all_vendors.each do |vendor|
-			if vendor.revenue > pref_vendor.revenue
-				pref_vendor = vendor
+			if args.length == 0 
+				if vendor.revenue > pref_vendor.revenue
+					pref_vendor = vendor
+				end
+			else
+				if vendor.revenue(date) > pref_vendor.revenue(date)
+					pref_vendor = vendor
+				end
 			end
 		end
 
 		return pref_vendor
 	end
 
-	def prefered_vendor(date)
-		all_vendors = vendors
-		pref_vendor = all_vendors.pop
-		
-		all_vendors do |vendor|
-			if vendor.revenue(date) > pref_vendor.revenue(date)
-				pref_vendor = vendor
-			end
-		end
-
-		return pref_vendor
-	end
-
-	def worst_vendor
+	def worst_vendor(*args)
 		all_vendors = vendors
 		worst_vendor = all_vendors.pop
 
 		all_vendors.each do |vendor|
-			if vendor.revenue < worst_vendor.revenue
-				worst_vendor = vendor
-			end
-		end
-
-		return worst_vendor
-	end
-
-	def worst_vendor
-		all_vendors = vendors
-		worst_vendor = all_vendors.pop
-
-		all_vendors.each do |vendor|
-			if vendor.revenue(date) < worst_vendor.revenue(date)
-				worst_vendor = vendor
+			if args.length == 0
+				if vendor.revenue < worst_vendor.revenue
+					worst_vendor = vendor
+				end
+			else
+				if vendor.revenue(date) < worst_vendor.revenue(date)
+					worst_vendor = vendor
+				end
 			end
 		end
 
