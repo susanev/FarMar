@@ -5,6 +5,7 @@
 
 class FarMar::Vendor #< FarMar::CSV
 	include FarMar::CSV
+
 	attr_accessor :id, :name, :num_employees, :market_id
 
 	def initialize(arr)
@@ -28,7 +29,7 @@ class FarMar::Vendor #< FarMar::CSV
 
 	def sales
 		vendor_sales = []
-		FarMar::Sale.all.each do |sale|
+		FarMar::Sale.all(:small).each do |sale|
 			if sale.vendor_id == @id
 				vendor_sales << sale
 			end
@@ -53,8 +54,11 @@ class FarMar::Vendor #< FarMar::CSV
 		return revenue
 	end
 
-	def self.all
+	def self.all(*args)
 		#return allf("support/vendors.csv")
+		if args.length == 1
+			return FarMar::CSV.all("support/vendors_small.csv", FarMar::Vendor)
+		end
 		return FarMar::CSV.all("support/vendors.csv", FarMar::Vendor)
 	end
 
@@ -88,23 +92,26 @@ class FarMar::Vendor #< FarMar::CSV
 		if n < 1
 			raise ArgumentError.new("value must be greater than 0")
 		end
+		all_vendors = all(:small)
+		most = [all_vendors.pop]
 
-		most = []
-
-		all.each do |vendor|
-			if most.length == 0
+		all_vendors.each do |vendor|
+			if (vendor <=> most.first) > 0
+				most.insert(0, vendor)
+			elsif (vendor <=> most.last) < 0
 				most.push(vendor)
 			else
 				min = 0
 				max = most.length
 				mid = (min+max)/2
 
-				while (min - max) > 1
-					if vendor.revenue > most[mid].revenue
-						min = mid
-					else
+				while (max - min) > 1
+					if (vendor <=> most[mid]) > 0
 						max = mid
+					else
+						min = mid
 					end
+					mid = (min+max)/2
 				end
 				most.insert(mid+1, vendor)
 			end
@@ -125,6 +132,17 @@ class FarMar::Vendor #< FarMar::CSV
 		return @id == other_vendor.id &&
 				@name == other_vendor.name &&
 				@num_employees == other_vendor.num_employees
+	end
+
+	# least to most
+	def <=>(another_vendor)
+	    if self.revenue < another_vendor.revenue
+	    	return -1
+	    elsif self.revenue > another_vendor.revenue
+	    	return 1
+	    else
+	    	return 0
+	    end
 	end
 end
 
