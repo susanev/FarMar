@@ -58,11 +58,21 @@ describe 'Vendor::Testing reading from csv' do
 	it 'must return vendors with the most revenue' do
 		expect(FarMar::Vendor.most_revenue(1)[0].revenue.must_equal(61749.0))
 		
-		expect(FarMar::Vendor.most_revenue(2).map { |vendor| vendor.revenue }.must_equal([61749.0, 56038.0]))
+		expect(FarMar::Vendor.most_revenue(2).map { |vendor| vendor.revenue }.must_equal([61749.0, 60127.0]))
 
-		expect(FarMar::Vendor.most_revenue(3).map { |vendor| vendor.revenue }.must_equal([61749.0, 56038.0, 43414.0]))
+		expect(FarMar::Vendor.most_revenue(3).map { |vendor| vendor.revenue }.must_equal([61749.0, 60127.0, 56038.0]))
 
-		expect(FarMar::Vendor.most_revenue(4).map { |vendor| vendor.revenue }.must_equal([61749.0, 56038.0, 43414.0, 41846.0]))
+		expect(FarMar::Vendor.most_revenue(4).map { |vendor| vendor.revenue }.must_equal([61749.0, 60127.0, 56038.0, 53303.0]))
+	end
+
+	it 'must return vendors with the most items' do
+		expect(FarMar::Vendor.most_items(1)[0].sales.length.must_equal(9))
+		
+		expect(FarMar::Vendor.most_items(2).map { |vendor| vendor.sales.length }.must_equal([9, 9]))
+
+		expect(FarMar::Vendor.most_items(3).map { |vendor| vendor.sales.length }.must_equal([9, 9, 9]))
+
+		expect(FarMar::Vendor.most_items(4).map { |vendor| vendor.sales.length }.must_equal([9, 9, 9, 9]))
 	end
 end
 
