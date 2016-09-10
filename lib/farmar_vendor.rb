@@ -88,7 +88,7 @@ class FarMar::Vendor #< FarMar::CSV
 		return revenue
 	end
 
-	def self.most_revenue(n)
+	def self.most(type, n)
 		if n < 1
 			raise ArgumentError.new("value must be greater than 0")
 		end
@@ -96,9 +96,9 @@ class FarMar::Vendor #< FarMar::CSV
 		most = [all_vendors.pop]
 
 		all_vendors.each do |vendor|
-			if (vendor <=> most.first) > 0
+			if vendor.compare(type, most.first) > 0
 				most.insert(0, vendor)
-			elsif (vendor <=> most.last) < 0
+			elsif vendor.compare(type, most.last) < 0
 				most.push(vendor)
 			else
 				min = 0
@@ -106,7 +106,7 @@ class FarMar::Vendor #< FarMar::CSV
 				mid = (min+max)/2
 
 				while (max - min) > 1
-					if (vendor <=> most[mid]) > 0
+					if vendor.compare(type, most[mid]) > 0
 						max = mid
 					else
 						min = mid
@@ -124,6 +124,14 @@ class FarMar::Vendor #< FarMar::CSV
 		return most
 	end
 
+	def self.most_revenue(n)
+		most(:revenue, n)
+	end
+
+	def self.most_items(n)
+		most(:items_sold, n)
+	end
+
 	def inspect
 		"id: #{@id} name: #{@name} num employees: #{@num_employees} market id: #{@market_id}"
 	end
@@ -134,11 +142,18 @@ class FarMar::Vendor #< FarMar::CSV
 				@num_employees == other_vendor.num_employees
 	end
 
-	# least to most
-	def <=>(another_vendor)
-	    if self.revenue < another_vendor.revenue
+	def compare(type, another_vendor)
+		if type == :revenue
+			a = self.revenue
+			b = another_vendor.revenue
+		elsif type == :items_sold
+			a = self.sales.length
+			b = another_vendor.sales.length
+		end
+
+	    if a < b
 	    	return -1
-	    elsif self.revenue > another_vendor.revenue
+	    elsif a > b
 	    	return 1
 	    else
 	    	return 0
