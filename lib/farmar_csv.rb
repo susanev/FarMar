@@ -1,6 +1,7 @@
 # class FarMar::CSV
 module FarMar::CSV
 	#def self.allf(file)
+
 	def self.all(file, item_type)
 		items = []
 		CSV.foreach(file) do |row|
