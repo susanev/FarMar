@@ -26,3 +26,23 @@ describe 'Market::Testing vendors instance variable' do
 		expect(market.vendors[1].inspect.must_equal(FarMar::Vendor.new([8,"Stamm Inc",2,2]).inspect))
 	end
 end
+
+describe 'Market::Testing self.search' do
+	it 'must return all markets that contain the name' do
+		skip
+		markets1 = FarMar::Market.search("schOOl")
+		expect(markets1.length.must_equal(3))
+		expect(markets1.map { |market| market.name }.must_equal(["Fox School Farmers Market", "OLD GREGG SCHOOL FARMERS MARKET", "Sassy Pea Market/Good Earth Petting Farm (at The Good Earth Day School)"]))
+
+		markets2 = FarMar::Market.search("FOOD")
+		expect(markets2.length.must_equal(4))
+		expect(markets2.map { |market| market.name }.must_equal(["DePere Market at Festival Foods", "East Jerusalem Fresh Food on the Block Farmers Market", "Chapman Food & Fitness Festival", "Mandarin Farmers Market by the Whole Foods Market"]))
+	end
+
+	it 'must return all markets and vendors that contain that name' do
+		skip
+		markets1 = FarMar::Market.search("hills")
+		expect(markets1.length.must_equal(16))
+		expect(markets1.map { |market| market.name }.must_equal(["Scottdale Farmers Market", "Cheyenne Farmers Market", "Waltham Farmers' Market", "Sandhills Farmers Green Market", "Downtown Valdosta Farm Days", "Davis County Farmers' Market", "El Pueblo Farmers' Market", "Gay Hill Farmer's Market", "Chaparral Farmers' Market", "Chaparral Farmers' Market", "Oxford Original Farmers Market", "Coteau Hills Farmers' Market", "Enid Farmers Market", "Coventry Farmers Market", "Talent Evening Market", "Woodstock Farmers Market"]))
+	end
+end
