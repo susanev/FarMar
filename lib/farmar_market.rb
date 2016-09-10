@@ -79,13 +79,14 @@ class FarMar::Market #< FarMar::CSV
 	end
 
 	def self.search(search_term)
+		search_term.downcase!
 		markets = []
 		all.each do |market|
-			if market.name.include? search_term
+			if market.name.downcase.include? search_term
 				markets << market
 			else
 				market.vendors.each do |vendor|
-					if vendor.name.include? search_term
+					if vendor.name.downcase.include? search_term
 						markets << market
 					end
 				end
