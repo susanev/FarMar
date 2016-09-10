@@ -27,8 +27,11 @@ class FarMar::Sale #< FarMar::CSV
 		return FarMar::Product.find(@product_id)
 	end
 
-	def self.all
+	def self.all(*args)
 		#return allf("support/sales.csv")
+		if args.length == 1
+			return FarMar::CSV.all("support/sales_small.csv", FarMar::Sale)
+		end
 		return FarMar::CSV.all("support/sales.csv", FarMar::Sale)
 	end
 
