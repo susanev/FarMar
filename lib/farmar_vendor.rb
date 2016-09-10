@@ -56,7 +56,7 @@ class FarMar::Vendor #< FarMar::CSV
 
 	def self.all(*args)
 		#return allf("support/vendors.csv")
-		if args.length == 1
+		if args.first == :small
 			return FarMar::CSV.all("support/vendors_small.csv", FarMar::Vendor)
 		end
 		return FarMar::CSV.all("support/vendors.csv", FarMar::Vendor)
