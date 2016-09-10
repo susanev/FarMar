@@ -55,6 +55,15 @@ describe 'Vendor::Testing reading from csv' do
 		expect(vendor.revenue.must_equal(26866))
 	end
 
+	it 'must return vendors with the most revenue' do
+		expect(FarMar::Vendor.most_revenue(1)[0].revenue.must_equal(61749.0))
+		
+		expect(FarMar::Vendor.most_revenue(2).map { |vendor| vendor.revenue }.must_equal([61749.0, 56038.0]))
+
+		expect(FarMar::Vendor.most_revenue(3).map { |vendor| vendor.revenue }.must_equal([61749.0, 56038.0, 43414.0]))
+
+		expect(FarMar::Vendor.most_revenue(4).map { |vendor| vendor.revenue }.must_equal([61749.0, 56038.0, 43414.0, 41846.0]))
+	end
 end
 
 
