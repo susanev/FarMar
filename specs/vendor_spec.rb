@@ -67,7 +67,7 @@ end
 
 describe 'Vednor::Testing most revenue and most items' do
 	it 'must return vendors with the most revenue' do
-		skip
+		# skip
 		expect(FarMar::Vendor.most_revenue(1)[0].revenue.must_equal(61749.0))
 		
 		expect(FarMar::Vendor.most_revenue(2).map { |vendor| vendor.revenue }.must_equal([61749.0, 60127.0]))
@@ -78,7 +78,7 @@ describe 'Vednor::Testing most revenue and most items' do
 	end
 
 	it 'must return vendors with the most items' do
-		skip
+		# skip
 		expect(FarMar::Vendor.most_items(1)[0].sales.length.must_equal(9))
 		
 		expect(FarMar::Vendor.most_items(2).map { |vendor| vendor.sales.length }.must_equal([9, 9]))
